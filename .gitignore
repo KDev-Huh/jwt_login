@@ -1,0 +1,37 @@
+# 빌드 결과물
+/build/
+/out/
+/target/
+
+# IDE 설정 파일
+.idea/
+/*.iml
+*.iws
+*.ipr
+
+# OS별 불필요한 파일
+.DS_Store
+Thumbs.db
+
+# 로그 파일
+*.log
+
+# 설정 파일 (개인 정보 포함 가능성)
+application.yml
+application.properties
+
+# 캐시/라이브러리
+.gradle/
+.classpath
+.project
+.settings/
+bin/
+!gradle/wrapper/gradle-wrapper.jar
+
+# 테스트 리포트 및 커버리지
+/test-output/
+/coverage/
+/jacoco.exec
+
+# 환경 파일
+.env
