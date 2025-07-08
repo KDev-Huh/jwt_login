@@ -1,6 +1,8 @@
 package com.study.security.controller;
 
+import com.study.security.dto.LoginRequest;
 import com.study.security.dto.SignupRequest;
+import com.study.security.dto.TokenResponse;
 import com.study.security.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +22,11 @@ public class AuthController {
     public ResponseEntity<Void> signup(@RequestBody @Valid SignupRequest request) {
         authService.signup(request);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenResponse> login(@RequestBody @Valid LoginRequest request) {
+        String token = authService.login(request);
+        return ResponseEntity.ok(new TokenResponse(token));
     }
 }
