@@ -43,6 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {     // OnceP
             // SecurityContextHolder => 현재 스레드의 "보안 컨텍스트"를 저장하는 객체
             // .setAuthentication(authentication); 현재 요청은 이 인증된 사용자에 의해 수행되었다고 시스템에 등록
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            // 여기에 등록한 정보로 현재 유저가 어떤 권한인지 확인해서 경로 접근 허용 or 차단을 판단한다.
 
             // Spring Security 에게 "지금 이 요청은 인증된 사용자야"라고 공식 선언하는 코드이다.
         }

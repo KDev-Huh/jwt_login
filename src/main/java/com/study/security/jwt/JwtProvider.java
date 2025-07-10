@@ -22,6 +22,9 @@ public class JwtProvider {
     @Value("${jwt.expiration}")
     private long expiration;
 
+    @Value("${jwt.refresh-expiration}")
+    private long refreshTokenValidity;
+
     private Key key;
 
     @PostConstruct  // 서버시작후 한번 실행되는 메서드
@@ -70,6 +73,15 @@ public class JwtProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .get("role", String.class);
+    }
+
+    public String generateRefreshToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenValidity))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities(String role) {     // 문자열 형태인 권한을 SimpleGrantedAuthority 로 감싸준다.

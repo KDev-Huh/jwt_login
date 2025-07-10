@@ -1,6 +1,7 @@
 package com.study.security.controller;
 
 import com.study.security.dto.LoginRequest;
+import com.study.security.dto.ReissueRequest;
 import com.study.security.dto.SignupRequest;
 import com.study.security.dto.TokenResponse;
 import com.study.security.service.AuthService;
@@ -26,7 +27,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody @Valid LoginRequest request) {
-        String token = authService.login(request);
-        return ResponseEntity.ok(new TokenResponse(token));
+        TokenResponse tokens = authService.login(request);
+        return ResponseEntity.ok(tokens);
+    }
+
+    @PostMapping("/reissue")
+    public ResponseEntity<TokenResponse> reissue(@RequestBody ReissueRequest request) {
+        TokenResponse response = authService.reissue(request);
+        return ResponseEntity.ok(response);
     }
 }
