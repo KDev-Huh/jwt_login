@@ -8,10 +8,7 @@ import com.study.security.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,5 +32,17 @@ public class AuthController {
     public ResponseEntity<TokenResponse> reissue(@RequestBody ReissueRequest request) {
         TokenResponse response = authService.reissue(request);
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String authHeader) {
+        if(authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        String accessToken = authHeader.substring(7);
+        authService.logout(accessToken);
+
+        return ResponseEntity.noContent().build();
     }
 }

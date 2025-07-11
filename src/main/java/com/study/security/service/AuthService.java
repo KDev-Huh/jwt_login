@@ -75,4 +75,12 @@ public class AuthService {
 
         return new TokenResponse(newAccessToken, refreshToken);
     }
+
+    public void logout(String accessToken) {
+        // 토큰에서 사용자 이름 추출
+        String username = jwtProvider.getUsernameFromToken(accessToken);
+
+        // Redis 에서 refreshToken 삭제
+        refreshTokenRedisRepository.deleteById(username);
+    }
 }

@@ -86,5 +86,5 @@ public class JwtProvider {
 
     public Collection<? extends GrantedAuthority> getAuthorities(String role) {     // 문자열 형태인 권한을 SimpleGrantedAuthority 로 감싸준다.
         return List.of(new SimpleGrantedAuthority(role));       // Spring Security 는 내부적으로 사용자 권한을 문자열이 아닌 GrantedAuthority
-    }                                                           // 형태로 관리하기 때문에 SimpleGrantedAuthority 로 감싸준다.
+    }                                                         // 형태로 관리하기 때문에 SimpleGrantedAuthority 로 감싸준다.
 }
